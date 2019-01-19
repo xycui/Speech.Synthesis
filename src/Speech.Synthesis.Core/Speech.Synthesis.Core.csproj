@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>Xianyi Cui</Authors>
+    <Product>Speech.Synthesis.Core</Product>
+    <Description>package contain the core speech synthesis codes</Description>
+    <Version>0.0.1</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Params\" />
+  </ItemGroup>
+
+</Project>
