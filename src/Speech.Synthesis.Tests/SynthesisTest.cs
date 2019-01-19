@@ -35,7 +35,7 @@ namespace Speech.Synthesis.Tests
         {
             SpeechSynthesizer synthesizer = new SpeechSynthesizer(new Uri(SynthesisUri), SubscriptionKey);
             Stopwatch stopWatch = Stopwatch.StartNew();
-            System.IO.Stream stream = synthesizer.GetSynthesizedData("你好你好。", new SynthesisParams { Language = "zh-CN", VoiceFont = VoiceName },
+            Stream stream = synthesizer.GetSynthesizedData("你好你好。", new SynthesisParams { Language = "zh-CN", VoiceFont = VoiceName },
                 AudioEncode.Mp3Mono16K128Br);
             _output.WriteLine(stopWatch.ElapsedMilliseconds.ToString());
             Assert.NotNull(stream);
