@@ -5,39 +5,40 @@
 
     internal static class RegionExtensions
     {
+        // https://docs.microsoft.com/zh-cn/azure/cognitive-services/speech-service/rest-apis
         private static readonly IReadOnlyDictionary<Region, Uri> RegionUriMapping = new Dictionary<Region, Uri>
         {
             {
                 Region.WestUS,
-                new Uri("https://westus.stt.speech.microsoft.com/speech/recognition/conversation/cognitiveservices/v1")
+                new Uri("https://westus.api.cognitive.microsoft.com/sts/v1.0/issueToken")
             },
             {
                 Region.WestUS2,
-                new Uri("https://westus2.stt.speech.microsoft.com/speech/recognition/conversation/cognitiveservices/v1")
+                new Uri("https://westus2.api.cognitive.microsoft.com/sts/v1.0/issueToken")
             },
             {
                 Region.EastUS,
-                new Uri("https://eastus.stt.speech.microsoft.com/speech/recognition/conversation/cognitiveservices/v1")
+                new Uri("https://eastus.api.cognitive.microsoft.com/sts/v1.0/issueToken")
             },
             {
                 Region.EastUS2,
-                new Uri("https://eastus2.stt.speech.microsoft.com/speech/recognition/conversation/cognitiveservices/v1")
+                new Uri("https://eastus2.api.cognitive.microsoft.com/sts/v1.0/issueToken")
             },
             {
                 Region.EastAsia,
-                new Uri("https://eastasia.stt.speech.microsoft.com/speech/recognition/conversation/cognitiveservices/v1")
+                new Uri("https://eastasia.api.cognitive.microsoft.com/sts/v1.0/issueToken")
             },
             {
                 Region.SouthEastAsia,
-                new Uri("https://southeastasia.stt.speech.microsoft.com/speech/recognition/conversation/cognitiveservices/v1")
+                new Uri("	https://southeastasia.api.cognitive.microsoft.com/sts/v1.0/issueToken")
             },
             {
                 Region.NorthEurope,
-                new Uri("https://northeurope.stt.speech.microsoft.com/speech/recognition/conversation/cognitiveservices/v1")
+                new Uri("https://northeurope.api.cognitive.microsoft.com/sts/v1.0/issueToken")
             },
             {
                 Region.WestEurope,
-                new Uri("https://westeurope.stt.speech.microsoft.com/speech/recognition/conversation/cognitiveservices/v1")
+                new Uri("https://westeurope.api.cognitive.microsoft.com/sts/v1.0/issueToken")
             }
         };
 

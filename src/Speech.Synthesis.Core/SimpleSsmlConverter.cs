@@ -5,7 +5,7 @@
     using System.Linq;
     using System.Xml;
 
-    internal class SimpleSsmlConverter : ISsmlConverter<SynthesisParams>
+    public class SimpleSsmlConverter : ISsmlConverter<SynthesisParams>
     {
         private const string SsmlTemplate = "<speak version=\"1.0\" xmlns=\"http://www.w3.org/2001/10/synthesis\" xmlns:mstts=\"http://www.w3.org/2001/mstts\" xml:lang=\"zh-CN\"><voice name=\"{0}\"><prosody rate=\"{1}\">{2}</prosody></voice></speak>";
         private static readonly Lazy<ISsmlConverter<SynthesisParams>> LazyInstace = new Lazy<ISsmlConverter<SynthesisParams>>(() => new SimpleSsmlConverter());
