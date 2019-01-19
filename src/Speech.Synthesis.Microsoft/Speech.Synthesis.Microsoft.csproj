@@ -2,6 +2,12 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>0.0.1</Version>
+    <Authors>Xianyi Cui</Authors>
+    <Description>package contain the implementation of the way to connect to microsoft tts service</Description>
+    <PackageProjectUrl />
+    <PackageTags>Speech, Sdk, Microsoft</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
