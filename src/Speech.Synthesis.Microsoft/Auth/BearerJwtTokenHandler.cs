@@ -1,4 +1,4 @@
-﻿namespace Speech.Synthesis.Microsoft
+﻿namespace Speech.Synthesis.Microsoft.Auth
 {
     using System;
     using System.Collections.Generic;
@@ -30,6 +30,11 @@
                 this,
                 TimeSpan.FromMinutes(9),
                 TimeSpan.FromMilliseconds(-1));
+        }
+
+        public BearerJwtTokenHandler(IDictionary<string, string> uriSubsciptionDict)
+        {
+            
         }
 
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)

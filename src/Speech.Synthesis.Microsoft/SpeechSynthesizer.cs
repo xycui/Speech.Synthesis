@@ -9,24 +9,22 @@
     using System.Text;
     using System.Threading;
     using System.Threading.Tasks;
+    using Auth;
 
-    public abstract class SpeechSynthesizer<TParam> : ISpeechSynthesizer<TParam, AudioEncode> where TParam : SynthesisParams
+    public abstract class SpeechSynthesizer<TParam> : BaseSpeechSynthesizer<TParam, AudioEncode> where TParam : SynthesisParams
     {
-        private readonly ISsmlConverter<TParam> _ssmlConverter;
         private readonly Uri _synthesizeUri;
         protected readonly HttpClient HttpClient;
 
-        protected SpeechSynthesizer(Uri synthesizeUri, ISsmlConverter<TParam> ssmlConverter)
+        protected SpeechSynthesizer(Uri synthesizeUri, ISsmlConverter<TParam> ssmlConverter):base(ssmlConverter)
         {
             _synthesizeUri = synthesizeUri;
-            _ssmlConverter = ssmlConverter;
             HttpClient = new HttpClient();
         }
 
-        protected SpeechSynthesizer(Uri synthesizeUri, ISsmlConverter<TParam> ssmlConverter, string subscriptionKey, Region tokenIssueRegion = Region.EastAsia)
+        protected SpeechSynthesizer(Uri synthesizeUri, ISsmlConverter<TParam> ssmlConverter, string subscriptionKey, Region tokenIssueRegion = Region.EastAsia):base(ssmlConverter)
         {
             _synthesizeUri = synthesizeUri;
-            _ssmlConverter = ssmlConverter;
             HttpClient =
                 new HttpClient(
                     new BearerJwtTokenHandler(subscriptionKey, tokenIssueRegion)
@@ -35,25 +33,12 @@
                     });
         }
 
-
-        public Stream GetSynthesizedData(string text, TParam synthesizeParams, AudioEncode outputEncode)
-        {
-            string ssml = _ssmlConverter.Convert(text, synthesizeParams);
-            return GetSynthesizedData(ssml, outputEncode);
-        }
-
-        public Stream GetSynthesizedData(string ssml, AudioEncode outputEncode)
+        public override Stream GetSynthesizedData(string ssml, AudioEncode outputEncode)
         {
             return Task.Run(() => GetSynthesizedDataAsync(ssml, outputEncode, CancellationToken.None)).Result;
         }
 
-        public Task<Stream> GetSynthesizedDataAsync(string text, TParam synthesizeParams, AudioEncode outputEncode, CancellationToken token)
-        {
-            string ssml = _ssmlConverter.Convert(text, synthesizeParams);
-            return GetSynthesizedDataAsync(ssml, outputEncode, token);
-        }
-
-        public async Task<Stream> GetSynthesizedDataAsync(string ssml, AudioEncode outputEncode, CancellationToken token)
+        public override async Task<Stream> GetSynthesizedDataAsync(string ssml, AudioEncode outputEncode, CancellationToken token)
         {
             HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, _synthesizeUri)
             {

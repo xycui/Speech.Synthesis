@@ -1,4 +1,5 @@
-﻿namespace Speech.Synthesis.Microsoft
+﻿// ReSharper disable All
+namespace Speech.Synthesis.Microsoft
 {
     public enum Region
     {
