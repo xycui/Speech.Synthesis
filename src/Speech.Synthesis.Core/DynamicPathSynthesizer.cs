@@ -1,5 +1,6 @@
 ﻿namespace Speech.Synthesis.Core
 {
+    using DynamicPath;
     using Params;
     using System;
     using System.IO;
@@ -9,13 +10,15 @@
     public abstract class DynamicPathSynthesizer<TParam, TEncode> : ISpeechSynthesizer<TParam, TEncode> where TParam : SynthesisParams
     {
         private readonly ISsmlConverter<TParam> _ssmlConverter;
+        private readonly IPathProvider<TParam> _pathProvider;
 
-        protected DynamicPathSynthesizer() : this(SimpleSsmlConverter.Instance)
+        protected DynamicPathSynthesizer(IPathProvider<TParam> pathProvider) : this(pathProvider, SimpleSsmlConverter.Instance)
         {
         }
 
-        protected DynamicPathSynthesizer(ISsmlConverter<TParam> ssmlConverter)
+        protected DynamicPathSynthesizer(IPathProvider<TParam> pathProvider, ISsmlConverter<TParam> ssmlConverter)
         {
+            _pathProvider = pathProvider;
             _ssmlConverter = ssmlConverter;
         }
 
@@ -33,14 +36,14 @@
 
         public Task<Stream> GetSynthesizedDataAsync(string text, TParam synthesizeParams, TEncode outputEncode, CancellationToken token)
         {
-            Uri host = null;
+            Uri host = _pathProvider.GetSynthesisUri(text, synthesizeParams);
             string ssml = _ssmlConverter.Convert(text, synthesizeParams);
             return InternalSynthesisAsync(ssml, host, outputEncode, token);
         }
 
         public Task<Stream> GetSynthesizedDataAsync(string ssml, TEncode outputEncode, CancellationToken token)
         {
-            Uri host = null;
+            Uri host = _pathProvider.GetSynthesisUri(ssml);
             return InternalSynthesisAsync(ssml, host, outputEncode, token);
         }
 

@@ -1,5 +1,6 @@
 ﻿namespace Speech.Synthesis.Microsoft
 {
+    using Auth;
     using Core;
     using Core.Params;
     using Extensions;
@@ -14,22 +15,21 @@
     {
         private readonly HttpClient _synthesisClient;
 
-        public CustomVoiceSynthesizer() : this(SimpleSsmlConverter.Instance)
+        public CustomVoiceSynthesizer(IAuthPathProvider<SynthesisParams> pathProvider) : base(pathProvider)
         {
+            _synthesisClient = new HttpClient(new MultiTargetBearerJwtTokenHandler(pathProvider.GetSubscriptionId));
         }
 
-        public CustomVoiceSynthesizer(ISsmlConverter<SynthesisParams> ssmlConverter) : base(ssmlConverter)
+        public CustomVoiceSynthesizer(IAuthPathProvider<SynthesisParams> pathProvider,
+            ISsmlConverter<SynthesisParams> ssmlConverter) : base(pathProvider, ssmlConverter)
         {
-            _synthesisClient = new HttpClient();
-        }
-
-        public CustomVoiceSynthesizer()
-        {
-            
+            _synthesisClient = new HttpClient(new MultiTargetBearerJwtTokenHandler(pathProvider.GetSubscriptionId));
         }
 
         protected override async Task<Stream> InternalSynthesisAsync(string ssml, Uri targetEp, AudioEncode encode, CancellationToken token)
         {
+            _ = targetEp == null ? throw new Exception("Endpoint is not available for the request.") : targetEp;
+
             HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, targetEp)
             {
                 Content = new StringContent(ssml, Encoding.UTF8, "application/ssml+xml")
