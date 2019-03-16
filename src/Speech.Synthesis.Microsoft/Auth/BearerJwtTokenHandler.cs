@@ -32,11 +32,6 @@
                 TimeSpan.FromMilliseconds(-1));
         }
 
-        public BearerJwtTokenHandler(IDictionary<string, string> uriSubsciptionDict)
-        {
-            
-        }
-
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
             request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", _token);
