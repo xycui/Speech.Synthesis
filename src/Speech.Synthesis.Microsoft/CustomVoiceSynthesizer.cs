@@ -17,13 +17,19 @@
 
         public CustomVoiceSynthesizer(IAuthPathProvider<SynthesisParams> pathProvider) : base(pathProvider)
         {
-            _synthesisClient = new HttpClient(new MultiTargetBearerJwtTokenHandler(pathProvider.GetSubscriptionId));
+            _synthesisClient = new HttpClient(new MultiTargetBearerJwtTokenHandler(pathProvider.GetSubscriptionId)
+            {
+                InnerHandler = new HttpClientHandler()
+            });
         }
 
         public CustomVoiceSynthesizer(IAuthPathProvider<SynthesisParams> pathProvider,
             ISsmlConverter<SynthesisParams> ssmlConverter) : base(pathProvider, ssmlConverter)
         {
-            _synthesisClient = new HttpClient(new MultiTargetBearerJwtTokenHandler(pathProvider.GetSubscriptionId));
+            _synthesisClient = new HttpClient(new MultiTargetBearerJwtTokenHandler(pathProvider.GetSubscriptionId)
+            {
+                InnerHandler = new HttpClientHandler()
+            });
         }
 
         protected override async Task<Stream> InternalSynthesisAsync(string ssml, Uri targetEp, AudioEncode encode, CancellationToken token)
