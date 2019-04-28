@@ -46,8 +46,8 @@
             };
             request.Headers.Add("Connection", "Keep-Alive");
             request.Headers.Add("X-Microsoft-OutputFormat", outputEncode.GetEncodeName());
-            request.Headers.Add("X-FD-ClientID", "RadioStationService");
-            request.Headers.Add("X-FD-ImpressionGUID", Guid.NewGuid().ToString());
+            //request.Headers.Add("X-FD-ClientID", "RadioStationService");
+            //request.Headers.Add("X-FD-ImpressionGUID", Guid.NewGuid().ToString());
 
             HttpResponseMessage response = await HttpClient.SendAsync(request, token).ConfigureAwait(false);
             if (!response.IsSuccessStatusCode)
