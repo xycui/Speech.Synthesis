@@ -6,9 +6,9 @@
     <Authors>Xianyi Cui</Authors>
     <Product>Speech.Synthesis.Core</Product>
     <Description>package contain the core speech synthesis codes</Description>
-    <Version>0.0.4</Version>
+    <Version>0.0.5</Version>
     <PackageTags>Speech, Synthesis, Ssml</PackageTags>
-    <AssemblyVersion>0.0.4.0</AssemblyVersion>
+    <AssemblyVersion>0.0.5.0</AssemblyVersion>
     <FileVersion>0.0.4.0</FileVersion>
   </PropertyGroup>
 
