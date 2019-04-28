@@ -2,9 +2,8 @@
 {
     using System;
 
-    public interface ISsmlNormalizer<TArg>
+    public interface ISsmlNormalizer<TInt>
     {
-        event EventHandler<TArg> OnNormalized;
-        string Normalize(string ssmlText);
+        string Normalize(string ssmlText, out TInt intData);
     }
 }
