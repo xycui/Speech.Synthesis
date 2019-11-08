@@ -3,6 +3,7 @@
     using Params;
     using System;
     using System.Linq;
+    using System.Security;
     using System.Xml;
 
     public class SimpleSsmlConverter : ISsmlConverter<SynthesisParams>
@@ -23,7 +24,7 @@
                 throw new ArgumentNullException(nameof(param));
             }
 
-            string validText = new string(source.Where(XmlConvert.IsXmlChar).ToArray());
+            string validText = SecurityElement.Escape(source);
             string voiceFont = param.VoiceFont;
             string rateString = string.IsNullOrEmpty(param.RateString) ? "+00.00%" : param.RateString;
 
