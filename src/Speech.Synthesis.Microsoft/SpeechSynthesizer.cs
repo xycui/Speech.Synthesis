@@ -11,18 +11,18 @@
     using System.Threading.Tasks;
     using Auth;
 
-    public abstract class SpeechSynthesizer<TParam> : BaseSpeechSynthesizer<TParam, AudioEncode> where TParam : SynthesisParams
+    public class SpeechSynthesizer<TParam> : BaseSpeechSynthesizer<TParam, AudioEncode> where TParam : SynthesisParams
     {
         private readonly Uri _synthesizeUri;
         protected readonly HttpClient HttpClient;
 
-        protected SpeechSynthesizer(Uri synthesizeUri, ISsmlConverter<TParam> ssmlConverter):base(ssmlConverter)
+        public SpeechSynthesizer(Uri synthesizeUri, ISsmlConverter<TParam> ssmlConverter):base(ssmlConverter)
         {
             _synthesizeUri = synthesizeUri;
             HttpClient = new HttpClient();
         }
 
-        protected SpeechSynthesizer(Uri synthesizeUri, ISsmlConverter<TParam> ssmlConverter, string subscriptionKey, Region tokenIssueRegion = Region.EastAsia):base(ssmlConverter)
+        public SpeechSynthesizer(Uri synthesizeUri, ISsmlConverter<TParam> ssmlConverter, string subscriptionKey, Region tokenIssueRegion = Region.EastAsia):base(ssmlConverter)
         {
             _synthesizeUri = synthesizeUri;
             HttpClient =
